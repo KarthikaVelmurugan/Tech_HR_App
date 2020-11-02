@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "72567465247",
+    "firebase_url": "https://tech-hr.firebaseio.com",
+    "project_id": "tech-hr",
+    "storage_bucket": "tech-hr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72567465247:android:fb7fe655c602e55a28fc2a",
+        "android_client_info": {
+          "package_name": "com.tailermade.techhr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72567465247-hhqght79ncv9li7akvjgqbcple13d471.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tailermade.techhr",
+            "certificate_hash": "f17c3b7f059f0b39d3c0365afb741f013df3ed59"
+          }
+        },
+        {
+          "client_id": "72567465247-ge74pddrqtlfh99mmkr6qqgfqf0hhvas.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA--IS1ZjpmJfQRkko6dH7IJh5rNLU-jm8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72567465247-ge74pddrqtlfh99mmkr6qqgfqf0hhvas.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
