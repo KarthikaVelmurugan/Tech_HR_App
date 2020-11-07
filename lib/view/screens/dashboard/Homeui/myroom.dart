@@ -24,7 +24,8 @@ class _MyRoom extends State<MyRoom> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: <Widget>[
             Container(
                 height: wt / 2,
@@ -83,7 +84,7 @@ class _MyRoom extends State<MyRoom> {
                   ])
                 ]))
           ],
-        ));
+        )));
   }
 
   _cardTeam(String st, Icon icon, int i) {

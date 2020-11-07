@@ -41,7 +41,8 @@ class _Emp_Regularization extends State<Emp_Regularization> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -81,7 +82,7 @@ class _Emp_Regularization extends State<Emp_Regularization> {
                             ])),
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
   _showRise() {
@@ -180,7 +181,7 @@ class _Emp_Regularization extends State<Emp_Regularization> {
 
   Widget _buildHead() {
     return Text(
-      "Attendance Regularizations Requests",
+      "Regularizations Requests",
       style: hst.copyWith(fontSize: wt / 23),
     );
   }

@@ -4,6 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
 class AddressDetails extends StatefulWidget {
+  var temporary_address;
+  var permanent_address;
+  AddressDetails({this.permanent_address, this.temporary_address});
   @override
   _AddressDetails createState() => _AddressDetails();
 }
@@ -20,6 +23,8 @@ class _AddressDetails extends State<AddressDetails> {
 
   @override
   void initState() {
+    print(widget.temporary_address['city']);
+
     super.initState();
   }
 
@@ -90,14 +95,47 @@ class _AddressDetails extends State<AddressDetails> {
                     )),
                 SizedBox(height: wt / 5),
                 Center(
-                  child: _buildAddressCard("Permanent Address",
-                      "1463 , New street\n Thanjavur Main street,\nThanjavur"),
-                ),
+                    child: _buildAddressCard(
+                        "permanent Address",
+                        widget.permanent_address['building_name'] == 'Nil'
+                            ? " - "
+                            : "" +
+                                widget.permanent_address['building_name'] +
+                                "," +
+                                widget.permanent_address['area'] +
+                                "\n" +
+                                widget.permanent_address['city'] +
+                                "," +
+                                widget.permanent_address['district'] +
+                                "\n" +
+                                widget.permanent_address['state'] +
+                                "," +
+                                widget.permanent_address['country'] +
+                                "."
+                                    "\n" +
+                                "" +
+                                widget.permanent_address['pincode'])),
                 SizedBox(height: wt / 9),
                 Center(
-                  child: _buildAddressCard("Temperory Address",
-                      "1463 , New street\n Thanjavur Main street,\nThanjavur"),
-                )
+                    child: _buildAddressCard(
+                        "Temperory Address",
+                        widget.temporary_address['building_name'] == 'Nil'
+                            ? " - "
+                            : "" +
+                                widget.temporary_address['building_name'] +
+                                "," +
+                                widget.temporary_address['area'] +
+                                "\n" +
+                                widget.temporary_address['city'] +
+                                "," +
+                                widget.temporary_address['district'] +
+                                "\n" +
+                                widget.temporary_address['state'] +
+                                "," +
+                                widget.temporary_address['country'] +
+                                "."
+                                    "\n" +
+                                widget.temporary_address['pincode'])),
               ],
             ),
           )

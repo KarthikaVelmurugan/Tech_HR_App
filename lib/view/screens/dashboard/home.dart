@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/dashboard/Homeui/homepage.dart';
 import 'package:techhr/view/screens/dashboard/activity/activity.dart';
 import 'package:techhr/view/screens/dashboard/profile/profileui.dart';
 import 'package:techhr/view/screens/dashboard/request/request.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   @override
@@ -16,6 +20,7 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   double height, width;
   bool _isselected = false;
+  var reBody;
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
@@ -27,11 +32,44 @@ class _Home extends State<Home> {
   @override
   void initState() {
     super.initState();
+    // fetchCompany();
+    //fetchCompanyInfo();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  fetchCompany() async {
+    Map data = {'cmpDtSrc': 'c1prisinfratel', 'employee_id': 'BI003'};
+    var response = await http.post(
+        'http://167.71.229.226:5000/api/v1/emyroomleavereq',
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: data,
+        encoding: Encoding.getByName("gzip"));
+
+    reBody = json.decode(response.body)['message'];
+    print(reBody);
+  }
+
+  fetchCompanyInfo() async {
+    Map data = {'company_id': 'infratel'};
+    var response = await http.post('http://167.71.229.226:5000/api/v1/vcmp',
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: data,
+        encoding: Encoding.getByName("gzip"));
+
+    reBody = json.decode(response.body)['message'];
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    techhrprefs.setString('cmpDtSrc', reBody['cmpDtSrc']);
+    techhrprefs.setString('company_id', reBody['company_id']);
+    techhrprefs.setString('company_logo', reBody['company_logo']);
+    techhrprefs.setString('company_name', reBody['company_name']);
+    techhrprefs.setString('creditLeaveBased', reBody['creditLeaveBased']);
+    techhrprefs.setString(
+        'current_payroll_month', reBody['current_payroll_month']);
+    techhrprefs.setString('role', reBody['role']);
   }
 
   @override

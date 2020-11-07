@@ -40,7 +40,8 @@ class _EmpLeave extends State<EmpLeave> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -76,7 +77,7 @@ class _EmpLeave extends State<EmpLeave> {
                   ),
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
   _showData() {

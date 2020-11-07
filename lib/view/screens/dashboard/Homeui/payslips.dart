@@ -236,7 +236,8 @@ class _PaySlips extends State<PaySlips> {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: SingleChildScrollView(
+            child: Column(
           children: <Widget>[
             Container(
                 height: ht / 2,
@@ -329,7 +330,7 @@ class _PaySlips extends State<PaySlips> {
               ],
             )
           ],
-        ));
+        )));
   }
 
   _selectDate(BuildContext context) async {

@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:avatar_glow/avatar_glow.dart';
 //import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:techhr/model/personaldata.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/backgroundlogin.dart';
 import 'package:techhr/view/screens/dashboard/profile/addressdetails.dart';
@@ -12,7 +15,9 @@ import 'package:techhr/view/screens/dashboard/profile/profilechangepassword.dart
 import 'package:techhr/view/screens/dashboard/profile/profileinfo.dart';
 import 'package:techhr/view/screens/dashboard/profile/salarydetails.dart';
 import 'package:techhr/view/screens/dashboard/profile/workdetails.dart';
+import 'package:techhr/view/screens/dashboard/profile/workhistory.dart';
 import 'package:techhr/view/screens/login.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatefulWidget {
   @override
@@ -21,6 +26,9 @@ class Profile extends StatefulWidget {
 
 class _Profile extends State<Profile> {
   String domainname = "Tailermade";
+  List lis = [];
+  bool loading = true;
+  var a;
   bool showsetting = false;
   double ht, wt;
   bool _showTick = true;
@@ -28,6 +36,8 @@ class _Profile extends State<Profile> {
   String path, url = '';
   bool videoFile = false;
   bool _selectTab = false;
+  var reBody;
+  PersonalData d = new PersonalData();
 
   /* void _openVideoFiles() async {
     // FilePickerResult result = await FilePicker.platform.pickFiles();
@@ -56,6 +66,35 @@ class _Profile extends State<Profile> {
       path = file1.path;
     }
   }*/
+  @override
+  void initState() {
+    // fun();
+    _getProfileUrl();
+    _fetchProfileData();
+    super.initState();
+  }
+
+  _getProfileUrl() async {
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    url = techhrprefs.getString('company_logo');
+    print(url);
+  }
+
+  _fetchProfileData() async {
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    Map data = {
+      'cmpDtSrc': 'c1prisinfratel',
+      'employee_id': techhrprefs.getString('userid')
+    };
+    var response = await http.post('http://167.71.229.226:5000/api/v1/eprofile',
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: data,
+        encoding: Encoding.getByName("gzip"));
+
+    reBody = json.decode(response.body)['message'];
+
+    // print(reBody['work_details']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,8 +305,9 @@ class _Profile extends State<Profile> {
               height: wt / 3,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(url),
-                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                      'https://pris.xyz/compDat/CP6914536/logo.jpg'),
+                  fit: BoxFit.contain,
                 ),
                 borderRadius: BorderRadius.circular(50.0),
                 border: Border.all(
@@ -321,32 +361,64 @@ class _Profile extends State<Profile> {
       print("Personal Info");
       //navigate to personal info
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => PersonalInfo()));
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  PersonalInfo(personal_details: reBody['personal_details'])));
     } else if (no == 2) {
       //navigate to work details
       print("Work Details");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WorkDetails()));
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  WorkDetails(work_details: reBody['work_details'])));
     } else if (no == 3) {
       //navigate to salary details
       print("Salary Details");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SalaryDetails()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => SalaryDetails(
+                    basic: reBody['salary_details']['components']['basic'],
+                    conveyance: reBody['salary_details']['components']
+                        ['conveyance'],
+                    ctc: reBody['salary_details']['components']['ctc'],
+                    deduction: reBody['salary_details']['components']
+                        ['deduction'],
+                    gross: reBody['salary_details']['components']['gross'],
+                    hra: reBody['salary_details']['components']['hra'],
+                    variable_pay: reBody['salary_details']['components']
+                        ['variable_pay'],
+                  )));
     } else if (no == 4) {
       //navigate to address details
       print("Address Details");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => AddressDetails()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => AddressDetails(
+                  permanent_address: reBody['address']['permanent_address'],
+                  temporary_address: reBody['address']['temporary_address'])));
     } else if (no == 5) {
       //navigate to educareer
       print("Edu - Career Details");
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => EduCarrerDetails()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => EduCarrerDetails(
+                  hsc: reBody['edu_career']['hsc'],
+                  pg: reBody['edu_career']['pg'],
+                  sslc: reBody['edu_career']['sslc'],
+                  ug: reBody['edu_career']['ug'])));
     } else if (no == 6) {
       print("Work History");
       //navigate to work history
-      /* Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Contracts()));*/
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  WorkHistory(work_history: reBody['work_history'])));
     }
   }
 

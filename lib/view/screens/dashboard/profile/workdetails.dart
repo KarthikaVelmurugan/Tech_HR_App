@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
 class WorkDetails extends StatefulWidget {
+  var work_details;
+  WorkDetails({this.work_details});
   @override
   _WorkDetails createState() => _WorkDetails();
 }
@@ -15,11 +17,30 @@ class _WorkDetails extends State<WorkDetails> {
       letterSpacing: 0.5,
       fontWeight: FontWeight.w500,
       color: Colors.blueGrey[400]);
-  InfoData i = new InfoData();
+  WorkInfoData i = new WorkInfoData();
 
   @override
   void initState() {
     //   i.data();
+    print(widget.work_details['branch']);
+    setData(widget.work_details);
+    super.initState();
+  }
+
+  setData(var d) {
+    i.branch.text = d['branch'];
+    i.confirmation_date.text = d['confirmation_date'];
+    i.date_of_join.text = d['date_of_join'];
+    i.department.text = d['department'];
+    i.designation.text = d['designation'];
+    i.epf_number.text = d['epf_number'];
+    i.esi_id.text = d['esi_id'];
+    i.job_status.text = d['job_status'];
+    i.payment_mode.text = d['payment_mode'];
+    i.probation_period.text = d['probation_period'];
+    i.reporting_manager.text = d['reporting_manager'];
+    i.shifts.text = d['shifts'];
+    i.uan_number.text = d['uan_number'];
   }
 
   @override
@@ -104,8 +125,6 @@ class _WorkDetails extends State<WorkDetails> {
                 SizedBox(height: 2),
                 combo("Shifts", i.shifts),
                 SizedBox(height: 2),
-                combo("Team", i.team),
-                SizedBox(height: 2),
                 combo("UAN - Number", i.uan_number),
                 SizedBox(height: 2),
               ],
@@ -115,6 +134,11 @@ class _WorkDetails extends State<WorkDetails> {
   }
 
   Widget combo(String label, TextEditingController t) {
+    if (t.text == "") {
+      setState(() {
+        t.text = " Nil ";
+      });
+    }
     return Container(
         padding: EdgeInsets.all(5.0),
         child: Column(
@@ -200,7 +224,7 @@ class Background extends StatelessWidget {
   }
 }
 
-class InfoData {
+class WorkInfoData {
   //personal Info
   TextEditingController branch = new TextEditingController();
   // String dobC;
@@ -219,24 +243,6 @@ class InfoData {
   //Home address info
   TextEditingController reporting_manager = new TextEditingController();
   TextEditingController shifts = new TextEditingController();
-  TextEditingController team = new TextEditingController();
+
   TextEditingController uan_number = new TextEditingController();
-
-  InfoData() {
-    branch.text = "REGOFF";
-
-    confirmation_date.text = "Mon, 23 Dec 2019 00:00:00 GMT";
-    date_of_join.text = "Mon, 23 Dec 2019 00:00:00 GMT";
-    department.text = "Operations";
-    designation.text = "Manager";
-    epf_number.text = "";
-    esi_id.text = "";
-    job_status.text = "Permanent";
-    payment_mode.text = "TMBCA";
-    probation_period.text = "0";
-    reporting_manager.text = "Antony Barnabass Adaikalam";
-    shifts.text = "GS-NINE";
-    team.text = "FTTH Field";
-    uan_number.text = "";
-  }
 }

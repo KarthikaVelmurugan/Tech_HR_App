@@ -21,7 +21,7 @@ class _LoginWithCompanyID extends State<LoginWithCompanyID> {
   FocusNode companyfocusnode;
   TextEditingController companyController = TextEditingController();
 
-  String companyid;
+  String companyid = '';
   double wt, ht;
   String cerror = '';
   TextStyle ts =
@@ -165,11 +165,7 @@ class _LoginWithCompanyID extends State<LoginWithCompanyID> {
               _validatec = true;
               f = 1;
             }
-            if (companyid != null && companyid != 'infratel') {
-              cerror = "Company Id mismatched";
-              _validatec = true;
-              f = 1;
-            }
+
             if (f == 0) {
               callAPI();
               storeData();
@@ -203,20 +199,28 @@ class _LoginWithCompanyID extends State<LoginWithCompanyID> {
     });
   }
 
-  Future<http.Response> callAPI() async {
-    String url = 'http://10.0.2.2:8000 /api/v1/vcmp';
+  callAPI() async {
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    String url = 'http://167.71.229.226:5000/api/v1/vcompany';
     Map data = {'company_id': companyid};
 
     var response = await http.post(url,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: data,
         encoding: Encoding.getByName("gzip"));
-    print("Response");
-    print(response.body);
+
     var reBody = json.decode(response.body)['message'];
     print(reBody);
+    techhrprefs.setString('cmpDtSrc', reBody['cmpDtSrc']);
+    techhrprefs.setString('company_id', reBody['company_id']);
+    techhrprefs.setString('company_logo', reBody['company_logo']);
+    techhrprefs.setString('company_name', reBody['company_name']);
+    techhrprefs.setString('creditLeaveBased', reBody['creditLeaveBased']);
 
-    return reBody;
+    techhrprefs.setString(
+        'current_payroll_month', reBody['current_payroll_month']);
+
+    techhrprefs.setString('role', reBody['role']);
   }
 }
 

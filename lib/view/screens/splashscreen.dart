@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
 //Initialize startTime() for predict duration limit.
   startTime() async {
     SharedPreferences techhrprefs = await SharedPreferences.getInstance();
-    //  techhrprefs.clear();
+    techhrprefs.clear();
 
     bool firstTime = techhrprefs.getBool('first_time');
 

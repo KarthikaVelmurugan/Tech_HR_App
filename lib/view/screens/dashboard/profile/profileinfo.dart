@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:techhr/model/personaldata.dart';
 import 'package:techhr/styles/styles.dart';
+import 'package:techhr/view/screens/dashboard/profile/personalInfoEditing.dart';
 
 class PersonalInfo extends StatefulWidget {
+  var personal_details;
+  PersonalInfo({this.personal_details});
   @override
   _PersonalInfo createState() => _PersonalInfo();
 }
@@ -16,11 +20,53 @@ class _PersonalInfo extends State<PersonalInfo> {
       fontWeight: FontWeight.w500,
       color: Colors.blueGrey[400]);
   InfoData i = new InfoData();
+  PersonalData d = new PersonalData();
 
   @override
   void initState() {
-    //   i.data();
-    print("Data is" + i.fullNameC.text);
+    setData(widget.personal_details);
+  }
+
+  setData(var a) {
+    i.adhaar_name.text = a['adhaar_name'];
+    i.adhaar_number.text = a['adhaar_number'];
+    i.adhaar_proof.text = a['adhaar_proof'];
+    i.bank_ac_number.text = a['bank_ac_number'];
+    i.bank_branch.text = a['bank_branch'];
+    i.bank_ifsc.text = a['bank_ifsc'];
+    i.bank_name.text = a['bank_name'];
+    i.bank_proof.text = a['bank_proof'];
+    i.blood_group.text = a['blood_group'];
+    i.dob.text = a['dob'];
+    i.employee_id.text = a['employee_id'];
+    i.father_dob.text = a['father_dob'];
+    i.father_mobile.text = a['father_mobile'].toString();
+    i.father_name.text = a['father_name'];
+    i.first_name.text = a['first_name'];
+    i.gender.text = a['gender'];
+    i.id_expiry.text = a['id_expiry'].toString();
+    i.id_name.text = a['id_name'];
+    i.id_number.text = a['id_number'].toString();
+    i.id_proof.text = a['id_proof'];
+    i.international_employee.text = a['international_employee'].toString();
+    i.last_name.text = a['last_name'];
+    i.maritial_status.text = a['maritial_status'];
+    i.marriage_date.text = a['marriage_date'];
+    //  i.mobile.text = a['mobile'];
+    i.mother_dob.text = a['mother_dob'];
+    i.mother_mobile.text = a['mother_mobile'].toString();
+    i.mother_name.text = a['mother_name'];
+    i.nationality.text = a['nationality'];
+    i.official_email.text = a['official_email'];
+    i.official_mobile.text = a['official_mobile'];
+    i.pan_number.text = a['pan_number'];
+    i.pan_proof.text = a['pan_proof'];
+    i.personal_email.text = a['personal_email'];
+    i.personal_mobile.text = a['personal_mobile'];
+    i.specially_disabled.text = a['specially_disabled'].toString();
+    i.spouse_dob.text = a['spouse_dob'];
+    i.spouse_mobile.text = a['spouse_mobile'].toString();
+    i.spouse_name.text = a['spouse_name'].toString();
   }
 
   @override
@@ -54,7 +100,7 @@ class _PersonalInfo extends State<PersonalInfo> {
                       },
                     ),
                   ),
-                  /*  Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: IconButton(
                       icon: Icon(Icons.edit),
@@ -65,12 +111,13 @@ class _PersonalInfo extends State<PersonalInfo> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EditingPage()),
+                                builder: (context) => EditingPage(
+                                    personal_details: widget.personal_details)),
                           );
                         });
                       },
                     ),
-                  )*/
+                  )
                 ]),
           ),
           Container(
@@ -81,25 +128,83 @@ class _PersonalInfo extends State<PersonalInfo> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(padding: EdgeInsets.all(9.0), child: _buildHead()),
-                combo("Full Name", i.fullNameC),
+                combo("Aadhar Name", i.adhaar_name),
                 SizedBox(height: 2),
-                combo("Date of Birth", i.dobC),
+                combo("Aadhar Number", i.adhaar_number),
                 SizedBox(height: 2),
-                combo("Nationality", i.nationalityC),
+                combo("Aadhar Proof", i.adhaar_proof),
                 SizedBox(height: 2),
-                combo("Email Address", i.emailC),
+                combo("Bank A/C Number", i.bank_ac_number),
                 SizedBox(height: 2),
-                combo("Phone Number", i.phnnoC),
+                combo("Bank branch", i.bank_branch),
                 SizedBox(height: 2),
-                combo("Gender", i.genderC),
+                combo("Bank IFSC", i.bank_ifsc),
                 SizedBox(height: 2),
-                combo("Marital Status", i.maritalC),
+                combo("Bank Name", i.bank_name),
                 SizedBox(height: 2),
-                combo("Personal Tax ID", i.personaltax),
+                combo("Bank Proof", i.bank_proof),
                 SizedBox(height: 2),
-                combo("Social Insurance", i.socialInsurance),
+                combo("Blood Group", i.blood_group),
                 SizedBox(height: 2),
-                combo("Health Insurance", i.healthInsurance),
+                combo("Date Of Birth", i.dob),
+                SizedBox(height: 2),
+                combo("Employee ID", i.employee_id),
+                SizedBox(height: 2),
+                combo("Father DOB", i.father_dob),
+                SizedBox(height: 2),
+                combo("Father Mobile No", i.father_mobile),
+                SizedBox(height: 2),
+                combo("Father Name", i.father_name),
+                SizedBox(height: 2),
+                combo("First Name", i.first_name),
+                SizedBox(height: 2),
+                combo("Gender", i.gender),
+                SizedBox(height: 2),
+                combo("ID Expiry", i.id_expiry),
+                SizedBox(height: 2),
+                combo("ID Name", i.id_name),
+                SizedBox(height: 2),
+                combo("ID Number", i.id_number),
+                SizedBox(height: 2),
+                combo("ID Proof", i.id_proof),
+                SizedBox(height: 2),
+                combo("International Employee", i.international_employee),
+                SizedBox(height: 2),
+                combo("Last Name", i.last_name),
+                SizedBox(height: 2),
+                combo("Maritial Status", i.maritial_status),
+                SizedBox(height: 2),
+                combo("Marriage Date", i.marriage_date),
+                SizedBox(height: 2),
+                combo("Mobile", i.mobile),
+                SizedBox(height: 2),
+                combo("Mother DOB", i.mother_dob),
+                SizedBox(height: 2),
+                combo("Mother Mobile No", i.mother_mobile),
+                SizedBox(height: 2),
+                combo("Mother Name", i.mother_name),
+                SizedBox(height: 2),
+                combo("Nationality", i.nationality),
+                SizedBox(height: 2),
+                combo("Official Email", i.official_email),
+                SizedBox(height: 2),
+                combo("Official Mobile Number", i.official_mobile),
+                SizedBox(height: 2),
+                combo("PAN No", i.pan_number),
+                SizedBox(height: 2),
+                combo("PAN Proof", i.pan_proof),
+                SizedBox(height: 2),
+                combo("Personal Email", i.personal_email),
+                SizedBox(height: 2),
+                combo("Personal Mobile", i.personal_mobile),
+                SizedBox(height: 2),
+                combo("Specially Disabled", i.specially_disabled),
+                SizedBox(height: 2),
+                combo("Spouse DOB", i.spouse_dob),
+                SizedBox(height: 2),
+                combo("Spouse Mobile", i.spouse_mobile),
+                SizedBox(height: 2),
+                combo("Spouse Name", i.spouse_name),
                 SizedBox(height: 2),
               ],
             ),
@@ -132,13 +237,18 @@ class _PersonalInfo extends State<PersonalInfo> {
   }
 
   Widget _buildField(TextEditingController c) {
+    if (c.text == "") {
+      setState(() {
+        c.text = " Nil ";
+      });
+    }
     return Container(
         margin: new EdgeInsets.symmetric(horizontal: 7.0, vertical: 7.0),
         child: Card(
           elevation: 15,
           shadowColor: Colors.deepPurple[400],
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Center(
             child: TextFormField(
               controller: c,
@@ -195,90 +305,57 @@ class Background extends StatelessWidget {
 
 class InfoData {
   //personal Info
-  TextEditingController fullNameC = new TextEditingController();
+  TextEditingController adhaar_name = new TextEditingController();
   // String dobC;
-  TextEditingController dobC = new TextEditingController();
+  TextEditingController adhaar_number = new TextEditingController();
   //String nationalityC;
-  TextEditingController nationalityC = new TextEditingController();
-  TextEditingController emailC = new TextEditingController();
-  TextEditingController phnnoC = new TextEditingController();
+  TextEditingController adhaar_proof = new TextEditingController();
+  TextEditingController bank_ac_number = new TextEditingController();
+  TextEditingController bank_branch = new TextEditingController();
   // String genderC;
-  TextEditingController genderC = new TextEditingController();
+  TextEditingController bank_ifsc = new TextEditingController();
   // String maritalC;
-  TextEditingController maritalC = new TextEditingController();
-  TextEditingController personaltax = new TextEditingController();
-  TextEditingController socialInsurance = new TextEditingController();
-  TextEditingController healthInsurance = new TextEditingController();
+  TextEditingController bank_name = new TextEditingController();
+  TextEditingController bank_proof = new TextEditingController();
+  TextEditingController blood_group = new TextEditingController();
+  TextEditingController dob = new TextEditingController();
   //Home address info
-  TextEditingController fullAddressC = new TextEditingController();
-  TextEditingController postalcodeC = new TextEditingController();
-  TextEditingController countryC = new TextEditingController();
-  TextEditingController stateC = new TextEditingController();
-  TextEditingController cityC = new TextEditingController();
+  TextEditingController employee_id = new TextEditingController();
+  TextEditingController father_dob = new TextEditingController();
+  TextEditingController father_mobile = new TextEditingController();
+  TextEditingController father_name = new TextEditingController();
+  TextEditingController first_name = new TextEditingController();
   //String countryC;
   //String stateC;
   //String cityC;
   //Emergency contact
-  TextEditingController relationshipC = new TextEditingController();
+  TextEditingController gender = new TextEditingController();
 
   //Job info
-  TextEditingController employeeStatusC = new TextEditingController();
-  TextEditingController joinDateC = new TextEditingController();
-  TextEditingController jobtitleC = new TextEditingController();
-  TextEditingController departmentC = new TextEditingController();
-  TextEditingController officeC = new TextEditingController();
-  TextEditingController lineManagerC = new TextEditingController();
-  TextEditingController employmentTypeC = new TextEditingController();
-  TextEditingController probationstartdateC = new TextEditingController();
-  TextEditingController probationenddateC = new TextEditingController();
-  TextEditingController contractstartdateC = new TextEditingController();
-  TextEditingController contractenddateC = new TextEditingController();
+  TextEditingController id_expiry = new TextEditingController();
+  TextEditingController id_name = new TextEditingController();
+  TextEditingController id_number = new TextEditingController();
+  TextEditingController id_proof = new TextEditingController();
+  TextEditingController international_employee = new TextEditingController();
+  TextEditingController last_name = new TextEditingController();
+  TextEditingController maritial_status = new TextEditingController();
+  TextEditingController marriage_date = new TextEditingController();
+  TextEditingController mobile = new TextEditingController();
+  TextEditingController mother_dob = new TextEditingController();
+  TextEditingController mother_mobile = new TextEditingController();
   //Dependents
-  TextEditingController dfname = new TextEditingController();
-  TextEditingController dlname = new TextEditingController();
-  TextEditingController ddob = new TextEditingController();
-  TextEditingController dnational = new TextEditingController();
-  TextEditingController dgender = new TextEditingController();
-  TextEditingController drelation = new TextEditingController();
-  TextEditingController dcity = new TextEditingController();
-  TextEditingController ddistrict = new TextEditingController();
-  TextEditingController dpersonalid = new TextEditingController();
-  TextEditingController dpersonaltax = new TextEditingController();
-  TextEditingController des = new TextEditingController();
-  TextEditingController ded = new TextEditingController();
+  TextEditingController mother_name = new TextEditingController();
+  TextEditingController nationality = new TextEditingController();
+  TextEditingController pan_number = new TextEditingController();
+  TextEditingController pan_proof = new TextEditingController();
+  TextEditingController personal_email = new TextEditingController();
+  TextEditingController personal_mobile = new TextEditingController();
+  TextEditingController specially_disabled = new TextEditingController();
+  TextEditingController spouse_dob = new TextEditingController();
+  TextEditingController spouse_mobile = new TextEditingController();
+  TextEditingController spouse_name = new TextEditingController();
 
-  InfoData() {
-    fullNameC.text = "Karthika Velmurugan";
-    dobC.text = "13 Feb 2000";
-    nationalityC.text = "-";
-    emailC.text = "karthikavel2000@gmail.com";
-    phnnoC.text = "+919080517780";
-    genderC.text = "Female";
-    maritalC.text = "-";
-    personaltax.text = "-";
-    socialInsurance.text = "-";
-    healthInsurance.text = "-";
-    //Home data
-    fullAddressC.text = "-";
-    postalcodeC.text = '-';
-    countryC.text = '-';
-    stateC.text = '-';
-    cityC.text = '-';
-    //emergency contact
-    relationshipC.text = '-';
+  TextEditingController official_email = new TextEditingController();
 
-    //job info
-
-    employeeStatusC.text = "Onboarding";
-    joinDateC.text = "03 Sep 2020";
-    jobtitleC.text = "Others";
-    departmentC.text = "Tailermade";
-    officeC.text = "Tailermade";
-    lineManagerC.text = "-";
-    employmentTypeC.text = "Full-time";
-    probationstartdateC.text = "-";
-    probationenddateC.text = "-";
-    contractstartdateC.text = "-";
-    contractenddateC.text = "-";
-  }
+  TextEditingController official_mobile = new TextEditingController();
 }

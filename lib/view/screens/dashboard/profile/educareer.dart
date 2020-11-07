@@ -2,9 +2,12 @@ import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
+import 'package:techhr/view/screens/dashboard/profile/educareereditingpage.dart';
 
 class EduCarrerDetails extends StatefulWidget {
+  var hsc, pg, ug, sslc;
   @override
+  EduCarrerDetails({this.hsc, this.pg, this.sslc, this.ug});
   _EduCarrerDetails createState() => _EduCarrerDetails();
 }
 
@@ -20,6 +23,7 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
 
   @override
   void initState() {
+    print(widget.hsc['marks']);
     super.initState();
   }
 
@@ -43,7 +47,7 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
           Container(
             height: wt / 6,
             child: Row(
-                //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.all(20.0),
@@ -55,8 +59,7 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
                       },
                     ),
                   ),
-
-                  /*  Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: IconButton(
                       icon: Icon(Icons.edit),
@@ -65,14 +68,18 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
                           print("press profileinfo edit page");
                           //navigate to edit page
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditingPage()),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EduCareerEditingPage(
+                                    edu_career_hsc: widget.hsc,
+                                    edu_career_sslc: widget.sslc,
+                                    edu_career_ug: widget.ug,
+                                    edu_career_pg: widget.pg),
+                              ));
                         });
                       },
                     ),
-                  )*/
+                  )
                 ]),
           ),
           Container(
@@ -93,31 +100,46 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
                 Center(
                   child: _buildCard(
                       "SSLC /Secondary",
-                      "StateBoard",
-                      "96%",
-                      "Nil",
-                      "Kalyana Sundaram Higher Secondary School",
-                      "2014"),
+                      widget.sslc['sslc_board'],
+                      widget.sslc['sslc_marks'],
+                      widget.sslc['sslc_proof'],
+                      widget.sslc['sslc_school_name'],
+                      widget.sslc['sslc_yop']),
                 ),
+                SizedBox(height: wt / 9),
+                Center(
+                    child: _buildCard(
+                  "Higher Secondary",
+                  widget.hsc['hsc_board'],
+                  widget.hsc['hsc_marks'],
+                  widget.hsc['hsc_proof'],
+                  widget.hsc['hsc_school_name'],
+                  widget.hsc['hsc_yop'],
+                )),
+                SizedBox(height: wt / 9),
+                Center(
+                    child: _buildCard(
+                        "Under Graduate / UG",
+                        "DEGREE  : " +
+                            widget.ug['ug_degree'] +
+                            "\n" +
+                            widget.ug['ug_university'],
+                        widget.ug['ug_marks'],
+                        widget.ug['ug_proof'],
+                        widget.ug['ug_institution_name'],
+                        widget.ug['ug_yop'])),
                 SizedBox(height: wt / 9),
                 Center(
                   child: _buildCard(
-                      "Higher Secondary",
-                      "StateBoard",
-                      "91%",
-                      "Nil",
-                      "Kalyana Sundaram Higher Secondary School",
-                      "2017"),
-                ),
-                SizedBox(height: wt / 9),
-                Center(
-                  child: _buildCard("Under Graduate / UG", "Nil", "8.7", "Nil",
-                      "Governement College of Engineering - Thanjavur", "2021"),
-                ),
-                SizedBox(height: wt / 9),
-                Center(
-                  child:
-                      _buildCard("Post Graduate / PG", "Nil", "", "", "", ""),
+                      "Post Graduate / PG",
+                      "DEGREE  : " +
+                          widget.pg['pg_degree'] +
+                          "\n" +
+                          widget.pg['pg_university'],
+                      widget.pg['pg_marks'],
+                      widget.pg['pg_proof'],
+                      widget.pg['pg_institution_name'],
+                      widget.pg['pg_yop']),
                 )
               ],
             ),
@@ -146,17 +168,22 @@ class _EduCarrerDetails extends State<EduCarrerDetails> {
                 Container(
                     padding: EdgeInsets.all(8.0),
                     margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                        board +
-                            "( " +
-                            mark +
-                            " )" +
-                            "\n" +
-                            name +
-                            "\n" +
-                            "YOP : " +
-                            yop,
-                        style: lst.copyWith(fontSize: wt / 28)))
+                    child: (board == "Nil" || proof == "Nil")
+                        ? Text(" - ")
+                        : Text(
+                            board +
+                                "( " +
+                                mark +
+                                " )" +
+                                "\n" +
+                                name +
+                                "\n" +
+                                "PROOF :" +
+                                proof +
+                                "\n"
+                                    "YOP : " +
+                                yop,
+                            style: lst.copyWith(fontSize: wt / 28)))
               ],
             )));
   }

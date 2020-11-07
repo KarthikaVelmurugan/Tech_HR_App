@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/dashboard/home.dart';
 import 'package:techhr/view/screens/forgotpassword.dart';
 import 'package:techhr/view/screens/l.dart';
+import 'package:http/http.dart' as http;
 
 class BackgroundLogin extends StatefulWidget {
   @override
@@ -330,7 +333,7 @@ class _Background extends State<BackgroundLogin> {
               _validateu = true;
               f = 1;
             }
-            if (pass == null || (pass.length < 6)) {
+            if (pass == null) {
               _validatep = true;
 
               f = 1;
@@ -339,6 +342,7 @@ class _Background extends State<BackgroundLogin> {
             if (f == 0) {
               // toast(context, "Your $name and Mobile $mobno saved!");
               storeData();
+              // callAPI();
 
               Navigator.pushReplacement(
                 context,
@@ -370,6 +374,24 @@ class _Background extends State<BackgroundLogin> {
       techhrprefs.setString('userid', user);
       techhrprefs.setString('password', pass);
     });
+  }
+
+  callAPI() async {
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    String url = 'http://167.71.229.226:5000/api/v1/vemployee';
+    Map data = {
+      'cmpDtSrc': techhrprefs.getString('cmpDtSrc'),
+      'user_id': techhrprefs.getString('userid'),
+      'password': techhrprefs.getString('password')
+    };
+
+    var response = await http.post(url,
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: data,
+        encoding: Encoding.getByName("gzip"));
+
+    var reBody = json.decode(response.body)['message'];
+    print(reBody);
   }
 }
 

@@ -5,6 +5,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
 class SalaryDetails extends StatefulWidget {
+  var basic, conveyance, ctc, deduction, gross, hra, variable_pay;
+  SalaryDetails(
+      {this.basic,
+      this.conveyance,
+      this.ctc,
+      this.deduction,
+      this.gross,
+      this.hra,
+      this.variable_pay});
   @override
   _SalaryDetails createState() => _SalaryDetails();
 }
@@ -21,6 +30,7 @@ class _SalaryDetails extends State<SalaryDetails> {
 
   @override
   void initState() {
+    print(widget.basic['monthly']);
     super.initState();
   }
 
@@ -36,7 +46,8 @@ class _SalaryDetails extends State<SalaryDetails> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -86,30 +97,49 @@ class _SalaryDetails extends State<SalaryDetails> {
                   //_buildCard("Basic"),
                   Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: _buildSalary("Basic")),
+                      child: _buildSalary("Basic", widget.basic['rate'],
+                          widget.basic['monthly'], widget.basic['yearly'])),
                   Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: _buildSalary("conveyance")),
-                  Padding(
-                      padding: EdgeInsets.all(8.0), child: _buildSalary("ctc")),
-                  Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: _buildSalary("deduction")),
-                  Padding(
-                      padding: EdgeInsets.all(8.0), child: _buildSalary("epf")),
-                  Padding(
-                      padding: EdgeInsets.all(8.0), child: _buildSalary("esi")),
-                  Padding(
-                      padding: EdgeInsets.all(8.0), child: _buildSalary("HRA")),
+                      child: _buildSalary(
+                          "conveyance",
+                          widget.conveyance['rate'],
+                          widget.conveyance['monthly'],
+                          widget.conveyance['yearly'])),
                   Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: _buildSalary("variable_pay")),
+                      child: _buildSalary("ctc", widget.ctc['rate'],
+                          widget.ctc['monthly'], widget.ctc['yearly'])),
+                  Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: _buildSalary(
+                          "deduction",
+                          widget.deduction['rate'],
+                          widget.deduction['monthly'],
+                          widget.deduction['yearly'])),
+                  Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: _buildSalary("Gross", widget.gross['rate'],
+                          widget.gross['monthly'], widget.gross['yearly'])),
+
+                  Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: _buildSalary("HRA", widget.hra['rate'],
+                          widget.hra['monthly'], widget.hra['yearly'])),
+                  Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: _buildSalary(
+                          "variable_pay",
+                          widget.variable_pay['rate'],
+                          widget.variable_pay['monthly'],
+                          widget.variable_pay['yearly']))
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
-  Widget _buildSalary(String title) {
+  Widget _buildSalary(
+      String title, String rate, String monthly, String yearly) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.25,
@@ -129,19 +159,19 @@ class _SalaryDetails extends State<SalaryDetails> {
       ),
       actions: <Widget>[
         IconSlideAction(
-            caption: "Rate \n 50 | P",
+            caption: "Rate \n" + rate.toString(),
             foregroundColor: Colors.white,
             color: materialColor,
             icon: Icons.more_horiz,
             onTap: null),
         IconSlideAction(
-            caption: "Monthly\n 12500.00",
+            caption: "Monthly\n" + monthly.toString(),
             foregroundColor: materialColor,
             color: Colors.white,
             icon: Icons.more_horiz,
             onTap: null),
         IconSlideAction(
-            caption: "Yearly \n 150000.00",
+            caption: "Yearly \n" + yearly.toString(),
             foregroundColor: Colors.white,
             color: materialColor,
             icon: Icons.more_horiz,

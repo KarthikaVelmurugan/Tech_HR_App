@@ -42,7 +42,8 @@ class _Emp_Attendance extends State<Emp_Attendance> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -89,7 +90,7 @@ class _Emp_Attendance extends State<Emp_Attendance> {
                                 ])),
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
   _showCalendar() {

@@ -40,7 +40,8 @@ class _Emp_Tax extends State<Emp_Tax> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -76,7 +77,7 @@ class _Emp_Tax extends State<Emp_Tax> {
                   ),
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
   _showData() {
@@ -131,7 +132,7 @@ class _Emp_Tax extends State<Emp_Tax> {
 
   Widget _buildHead() {
     return Text(
-      "Leave Requests",
+      "Tax Planner",
       style: hst.copyWith(fontSize: wt / 20),
     );
   }

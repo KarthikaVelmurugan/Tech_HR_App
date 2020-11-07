@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
+import 'package:techhr/view/screens/changepassword.dart';
 import 'package:techhr/view/screens/dashboard/Homeui/dashboard.dart';
 import 'package:techhr/view/screens/dashboard/Homeui/myroom.dart';
 import 'package:techhr/view/screens/dashboard/Homeui/myteam.dart';
 import 'package:techhr/view/screens/dashboard/Homeui/payslips.dart';
+import 'package:techhr/view/screens/dashboard/profile/profileui.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,6 +53,24 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    void handleClick(String value) {
+      switch (value) {
+        case 'Profile':
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (BuildContext context) => Profile()));
+          break;
+        case 'Logout':
+          break;
+        case 'Settings':
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => ChangePassWord()));
+
+          break;
+      }
+    }
+
     Size screenSize = MediaQuery.of(context).size;
     wt = screenSize.width;
     ht = screenSize.height;
@@ -89,6 +109,51 @@ class _HomePage extends State<HomePage> with SingleTickerProviderStateMixin {
               style: hst.copyWith(fontSize: wt / 24),
             ),*/
               backgroundColor: Colors.white,
+              actions: <Widget>[
+                /*CircleAvatar(
+                  child: Icon(FontAwesomeIcons.solidUser,
+                      size: 18, color: Colors.blueGrey[400]),
+                  radius: 22,
+                  backgroundColor: Colors.blueGrey[50],
+                ),*/
+                PopupMenuButton<String>(
+                  onSelected: handleClick,
+                  /*  child: CircleAvatar(
+                    child: Icon(FontAwesomeIcons.solidUser,
+                        size: 18, color: Colors.blueGrey[400]),
+                    radius: 22,
+                    backgroundColor: Colors.blueGrey[50],
+                  ),*/
+                  icon: Icon(
+                    FontAwesomeIcons.solidUser,
+                    size: 20,
+                    color: Colors.blueGrey[200],
+                  ),
+                  itemBuilder: (BuildContext context) {
+                    return {'Profile', 'Settings', 'Logout'}
+                        .map((String choice) {
+                      return PopupMenuItem<String>(
+                        value: choice,
+                        child: Text(
+                          choice,
+                          style: hst.copyWith(fontSize: wt / 29),
+                        ),
+                      );
+                    }).toList();
+                  },
+                ),
+              ],
+              /* actions: [
+                Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: CircleAvatar(
+                    child: Icon(FontAwesomeIcons.solidUser,
+                        size: 18, color: Colors.blueGrey[400]),
+                    radius: 22,
+                    backgroundColor: Colors.blueGrey[50],
+                  ),
+                )
+              ],*/
               leading: IconButton(
                 icon: Icon(
                   Icons.menu,

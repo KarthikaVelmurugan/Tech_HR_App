@@ -40,7 +40,8 @@ class _Emp_Compensation extends State<Emp_Compensation> {
         home: Scaffold(
             body: SingleChildScrollView(
                 child: Background(
-                    child: Column(children: <Widget>[
+                    child: SingleChildScrollView(
+                        child: Column(children: <Widget>[
           SizedBox(
             height: 10,
           ),
@@ -81,7 +82,7 @@ class _Emp_Compensation extends State<Emp_Compensation> {
                             ])),
                 ]),
           )
-        ])))));
+        ]))))));
   }
 
   _show() {
