@@ -1,5 +1,6 @@
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/dashboard/profile/workhistoryaddpage.dart';
@@ -24,6 +25,14 @@ class _WorkHistory extends State<WorkHistory> {
   @override
   void initState() {
     super.initState();
+    Fluttertoast.showToast(
+        msg: widget.work_history.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
   }
 
   @override

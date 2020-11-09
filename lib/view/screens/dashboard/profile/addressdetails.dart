@@ -1,5 +1,6 @@
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
@@ -24,7 +25,15 @@ class _AddressDetails extends State<AddressDetails> {
   @override
   void initState() {
     print(widget.temporary_address['city']);
-
+    Fluttertoast.showToast(
+        msg: widget.temporary_address.toString() +
+            widget.permanent_address.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
     super.initState();
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
@@ -23,6 +24,14 @@ class _WorkDetails extends State<WorkDetails> {
   void initState() {
     //   i.data();
     print(widget.work_details['branch']);
+    Fluttertoast.showToast(
+        msg: widget.work_details.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
     setData(widget.work_details);
     super.initState();
   }

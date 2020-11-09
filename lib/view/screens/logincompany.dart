@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/dashboard/home.dart';
@@ -203,6 +204,14 @@ class _LoginWithCompanyID extends State<LoginWithCompanyID> {
     SharedPreferences techhrprefs = await SharedPreferences.getInstance();
     String url = 'http://167.71.229.226:5000/api/v1/vcompany';
     Map data = {'company_id': companyid};
+    Fluttertoast.showToast(
+        msg: "Before APi call" + url,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
 
     var response = await http.post(url,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -210,6 +219,15 @@ class _LoginWithCompanyID extends State<LoginWithCompanyID> {
         encoding: Encoding.getByName("gzip"));
 
     var reBody = json.decode(response.body)['message'];
+    Fluttertoast.showToast(
+        msg: "response" + reBody.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
+
     print(reBody);
     techhrprefs.setString('cmpDtSrc', reBody['cmpDtSrc']);
     techhrprefs.setString('company_id', reBody['company_id']);

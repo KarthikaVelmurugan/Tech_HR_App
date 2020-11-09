@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techhr/styles/styles.dart';
 import 'package:techhr/view/screens/dashboard/home.dart';
@@ -342,7 +343,7 @@ class _Background extends State<BackgroundLogin> {
             if (f == 0) {
               // toast(context, "Your $name and Mobile $mobno saved!");
               storeData();
-              // callAPI();
+              callAPI();
 
               Navigator.pushReplacement(
                 context,
@@ -379,11 +380,20 @@ class _Background extends State<BackgroundLogin> {
   callAPI() async {
     SharedPreferences techhrprefs = await SharedPreferences.getInstance();
     String url = 'http://167.71.229.226:5000/api/v1/vemployee';
+    print(techhrprefs.getString('cmpDtSrc'));
     Map data = {
-      'cmpDtSrc': techhrprefs.getString('cmpDtSrc'),
+      'cmpDtSrc': 'c1prisinfratel', // techhrprefs.getString('cmpDtSrc'),
       'user_id': techhrprefs.getString('userid'),
       'password': techhrprefs.getString('password')
     };
+    Fluttertoast.showToast(
+        msg: "Before API :" + url,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
 
     var response = await http.post(url,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -391,6 +401,21 @@ class _Background extends State<BackgroundLogin> {
         encoding: Encoding.getByName("gzip"));
 
     var reBody = json.decode(response.body)['message'];
+    Fluttertoast.showToast(
+        msg: "Response" + reBody.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
+
+    print(reBody);
+    techhrprefs.setString('employee_gender', reBody['employee_gender']);
+    techhrprefs.setString('employee_id', reBody['employee_id']);
+    techhrprefs.setString('employee_image', reBody['employee_image']);
+    techhrprefs.setString('employee_name', reBody['employee_name']);
+    techhrprefs.setString('role', reBody['role']);
     print(reBody);
   }
 }

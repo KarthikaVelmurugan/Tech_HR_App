@@ -82,11 +82,21 @@ class _Profile extends State<Profile> {
 
   _fetchProfileData() async {
     SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    String url = 'http://167.71.229.226:5000/api/v1/eprofile';
     Map data = {
       'cmpDtSrc': 'c1prisinfratel',
       'employee_id': techhrprefs.getString('userid')
     };
-    var response = await http.post('http://167.71.229.226:5000/api/v1/eprofile',
+    Fluttertoast.showToast(
+        msg: "Before API" + url,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
+
+    var response = await http.post(url,
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
         body: data,
         encoding: Encoding.getByName("gzip"));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/model/personaldata.dart';
 import 'package:techhr/styles/styles.dart';
@@ -25,6 +26,14 @@ class _PersonalInfo extends State<PersonalInfo> {
   @override
   void initState() {
     setData(widget.personal_details);
+    Fluttertoast.showToast(
+        msg: widget.personal_details.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
   }
 
   setData(var a) {

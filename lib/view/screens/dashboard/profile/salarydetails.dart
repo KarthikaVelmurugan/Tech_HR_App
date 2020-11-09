@@ -1,6 +1,7 @@
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:techhr/styles/styles.dart';
 
@@ -31,6 +32,14 @@ class _SalaryDetails extends State<SalaryDetails> {
   @override
   void initState() {
     print(widget.basic['monthly']);
+    Fluttertoast.showToast(
+        msg: widget.basic.toString() + widget.conveyance.toString(),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: toastColor,
+        textColor: Colors.white,
+        fontSize: wt / 20);
     super.initState();
   }
 

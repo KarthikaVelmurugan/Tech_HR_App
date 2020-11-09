@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techhr/styles/styles.dart';
 
 class DashBoard extends StatefulWidget {
@@ -11,6 +12,20 @@ class DashBoard extends StatefulWidget {
 class _DashBoard extends State<DashBoard> {
   bool _visible = true;
   double ht, wt;
+  String name = '';
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  getData() async {
+    SharedPreferences techhrprefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = techhrprefs.getString('employee_name');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -29,7 +44,7 @@ class _DashBoard extends State<DashBoard> {
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "Hello Antony !!",
+                        "Hello " + name + " !!",
                         style: hst.copyWith(fontSize: wt / 20),
                       ),
                     ),
