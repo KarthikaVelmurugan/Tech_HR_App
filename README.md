@@ -1,16 +1,29 @@
-# techhr
+# TECH -HR
 
-A new Flutter project.
+HR Management Flutter Application
 
-## Getting Started
+ # Dashboard UI
+ 
+![Screenshot_20201116-141419](https://user-images.githubusercontent.com/64409033/99232703-4791dd80-2818-11eb-9e00-199c9551c5f6.jpg)
+![Screenshot_20201116-141410](https://user-images.githubusercontent.com/64409033/99232781-5d070780-2818-11eb-9d7b-617b6f051b71.jpg)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# Leave Request Page
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_20201116-141516](https://user-images.githubusercontent.com/64409033/99232195-9ee37e00-2817-11eb-9887-1f39215fdb33.jpg)
+
+# Payslip Page
+![Screenshot_20201116-141456](https://user-images.githubusercontent.com/64409033/99232269-b884c580-2817-11eb-92cc-05176090408a.jpg)
+
+# Team Details
+![Screenshot_20201116-141442](https://user-images.githubusercontent.com/64409033/99232326-ce928600-2817-11eb-93d9-bd2584522bf2.jpg)
+
+# View Team info
+![Screenshot_20201116-141436](https://user-images.githubusercontent.com/64409033/99232443-eb2ebe00-2817-11eb-9ed7-95f5393b82d4.jpg)
+
+# View employee info
+![Screenshot_20201116-141424](https://user-images.githubusercontent.com/64409033/99232515-026dab80-2818-11eb-920b-02f8802b6634.jpg)
+
+
+# 
